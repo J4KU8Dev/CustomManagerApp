@@ -1,0 +1,9 @@
+<td>
+    <img [src]="'assets/' + customer().sex + '.png'" [alt]="customer().sex">
+</td>
+<td class="align-middle">{{customer().firstName}}</td>
+<td class="align-middle">{{customer().lastName}}</td>
+<td class="align-middle">{{customer().address}}</td>
+<td class="align-middle">{{customer().city}}</td>
+<td class="align-middle">{{customer().state}}</td>
+<td class="align-middle">{{customer().orderTotal | currency}}</td> 
