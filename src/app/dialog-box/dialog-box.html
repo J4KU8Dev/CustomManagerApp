@@ -1,0 +1,61 @@
+<button mat-dialog-close mat-icon-button><mat-icon fontIcon="close"></mat-icon></button>
+<h2 mat-dialog-title>Add new customer</h2>
+<mat-dialog-content>
+    <h3>Please enter new customer</h3>
+    <p>
+        <mat-form-field>
+            <mat-label>Gender</mat-label>
+            <mat-select>
+                <mat-option value="male">Male</mat-option>
+                <mat-option value="female">Female</mat-option>
+            </mat-select>
+    </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field>
+            <mat-label>First Name</mat-label>
+            <input matInput>
+            <mat-icon matSuffix>person</mat-icon>
+            <!-- <mat-icon matSuffix fontIcon="person"></mat-icon> -->
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field>
+            <mat-label>Last Name</mat-label>
+            <input matInput>
+            <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field>
+            <mat-label>Address</mat-label>
+            <input matInput>
+            <mat-icon matSuffix>place</mat-icon>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field>
+            <mat-label>City</mat-label>
+            <input matInput>
+            <mat-icon matSuffix>location_city</mat-icon>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field>
+            <mat-label>State</mat-label>
+            <input matInput>
+            <mat-icon matSuffix>terrain</mat-icon>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field>
+            <mat-label>Order Total</mat-label>
+            <input matInput type="number">
+            <mat-icon matSuffix> attach_money</mat-icon>
+        </mat-form-field>
+    </p>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-dialog-close matButton="filled" style="background-color: rgb(206, 51, 51);">Cancel<mat-icon matSuffix>delete_forever</mat-icon></button>
+    <button mat-dialog-close matButton="filled"><mat-icon matSuffix>done</mat-icon> Add</button>
+</mat-dialog-actions>
