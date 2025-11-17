@@ -5,6 +5,7 @@ import { customerModel } from '../customer.model';
 import { MatButtonModule } from '@angular/material/button';
 import { DialogBox } from '../dialog-box/dialog-box';
 import { MatDialog } from '@angular/material/dialog';
+import { DialogRef } from '@angular/cdk/dialog';
 @Component({
   selector: 'app-options-menu',
   imports: [FormsModule, MatButtonModule],
@@ -13,14 +14,22 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class OptionsMenu {
   readonly dialog = inject(MatDialog);
-  openDialog(){
-    this.dialog.open(DialogBox);
-  }
+  
+  // old version below
+  // openDialog(){
+  //   this.dialog.open(DialogBox);
+  // }
+
+  openDialog() {
+  const dialogRef = this.dialog.open(DialogBox);
+  dialogRef.afterClosed().subscribe((newCustomer: customerModel | undefined) => {
+    if (newCustomer) {
+      console.log('New customer:', newCustomer);
+      customers.push(newCustomer);
+    }
+  });
+}
 
 
-  filter = signal<string>("");
   customers = customers;
-  result(wrapper: string) {
-    
-  }
 }

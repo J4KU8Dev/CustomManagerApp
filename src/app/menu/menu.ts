@@ -10,5 +10,4 @@ import { MenuCustomer } from "./menu-customer/menu-customer";
 })
 export class Menu {
   customers = customers;
-  
 }
