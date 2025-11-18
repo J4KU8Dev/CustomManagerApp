@@ -1,8 +1,9 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { Header } from "./header/header";
 import { Menu } from "./menu/menu";
 import { OptionsMenu } from "./options-menu/options-menu";
 import { customerModel } from './customer.model';
+import { customers } from './customer';
 
 @Component({
   selector: 'app-root',
@@ -10,11 +11,14 @@ import { customerModel } from './customer.model';
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App {
+export class App implements OnInit {
   protected readonly title = signal('CustomManagerApp');
-  saveData(){
-    
+  saveData(filter: customerModel[]){
+    this.result = filter;
   }
-  result:customerModel[]=[];
+  ngOnInit(): void {
+    console.log(this.result);
+  }
+  result:customerModel[]=[...customers];
 
 }
