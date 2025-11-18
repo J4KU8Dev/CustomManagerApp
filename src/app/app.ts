@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import { Header } from "./header/header";
 import { Menu } from "./menu/menu";
 import { OptionsMenu } from "./options-menu/options-menu";
+import { customerModel } from './customer.model';
 
 @Component({
   selector: 'app-root',
@@ -11,4 +12,9 @@ import { OptionsMenu } from "./options-menu/options-menu";
 })
 export class App {
   protected readonly title = signal('CustomManagerApp');
+  saveData(){
+    
+  }
+  result:customerModel[]=[];
+
 }

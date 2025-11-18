@@ -19,12 +19,12 @@ export class DialogBox {
 
   profileForm = new FormGroup({
     sex: new FormControl(''),
-    firstName: new FormControl(''),
-    lastName: new FormControl(''),
-    address: new FormControl(''),
-    city: new FormControl(''),
-    state: new FormControl(''),
-    order: new FormControl(''),
+    firstName: new FormControl('',[Validators.required]),
+    lastName: new FormControl('',[Validators.required]),
+    address: new FormControl('',[Validators.required]),
+    city: new FormControl('',[Validators.required]),
+    state: new FormControl('',[Validators.required]),
+    order: new FormControl('',[Validators.required]),
   });
   submitDialog(gender:'male' | 'female',firstName: string, lastName: string, address: string, city: string, state: string, order: number){
    const newCustomer:customerModel = {

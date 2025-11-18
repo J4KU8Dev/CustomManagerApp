@@ -1,5 +1,4 @@
 <form [formGroup]="profileForm">
-    <!-- add error messages, add filter bar -->
     <button mat-dialog-close mat-icon-button><mat-icon fontIcon="close"></mat-icon></button>
     <h2 mat-dialog-title>Add new customer</h2>
     <mat-dialog-content>
@@ -7,14 +6,10 @@
         <p>
             <mat-form-field>
                 <mat-label>Gender</mat-label>
-                <mat-select #gender formControlName="sex">
+                <mat-select #gender required formControlName="sex">
                     <mat-option value="male">Male</mat-option>
                     <mat-option value="female">Female</mat-option>
                 </mat-select>
-                @if(!gender){
-                    <mat-error>Please enter correct gender</mat-error>
-                }
-                
         </mat-form-field>
         </p>
         <p>

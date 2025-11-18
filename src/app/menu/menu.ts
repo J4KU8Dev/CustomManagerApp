@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { customers } from '../customer';
 import { MenuCustomer } from "./menu-customer/menu-customer";
+import { customerModel } from '../customer.model';
 
 @Component({
   selector: 'app-menu',
@@ -10,4 +11,5 @@ import { MenuCustomer } from "./menu-customer/menu-customer";
 })
 export class Menu {
   customers = customers;
+  newData = input<customerModel[]>();
 }

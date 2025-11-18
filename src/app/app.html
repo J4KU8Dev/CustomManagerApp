@@ -7,6 +7,6 @@ divide app for 3 components :
 
 <div class="container-fluid">
     <app-header />
-    <app-options-menu />
-    <app-menu /> 
+    <app-options-menu (filteredData)="result"/>
+    <app-menu [newData]="result" /> 
 </div>
