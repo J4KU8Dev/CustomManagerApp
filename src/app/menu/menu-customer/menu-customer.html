@@ -7,4 +7,5 @@
 <td class="align-middle">{{customer().city}}</td>
 <td class="align-middle">{{customer().state}}</td>
 <td class="align-middle">{{customer().orderTotal | currency}}</td>
-<td class="align-middle"><img (click)="updateCustomer()" style="margin-left: 16px; cursor: pointer;" src="assets/more.png"></td>
+<td 
+ [app-update-customer]="customer()." class="align-middle"><img (click)="updateCustomer()"  style="margin-left: 16px; cursor: pointer;" src="assets/more.png"></td>

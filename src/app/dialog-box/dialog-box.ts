@@ -18,7 +18,7 @@ export class DialogBox {
   constructor(private dialogRef: MatDialogRef<DialogBox>){}
 
   profileForm = new FormGroup({
-    sex: new FormControl(''),
+    sex: new FormControl('',[Validators.required]),
     firstName: new FormControl('',[Validators.required]),
     lastName: new FormControl('',[Validators.required]),
     address: new FormControl('',[Validators.required]),
