@@ -14,11 +14,12 @@ import { customers } from './customer';
 export class App implements OnInit {
   protected readonly title = signal('CustomManagerApp');
   saveData(filter: customerModel[]){
-    this.result = filter;
+    this.result.set(filter);
   }
   ngOnInit(): void {
     console.log(this.result);
   }
-  result:customerModel[]=[...customers];
+  // result:customerModel[]=[...customers];
+  result = signal([... customers])
 
 }

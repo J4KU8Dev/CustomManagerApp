@@ -8,5 +8,5 @@ divide app for 3 components :
 <div class="container-fluid">
     <app-header />
     <app-options-menu (filteredData)="saveData($event)"/>
-    <app-menu [newData]="result" /> 
+    <app-menu [newData]="result()" /> 
 </div>

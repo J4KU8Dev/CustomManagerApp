@@ -14,7 +14,7 @@ import { DialogRef } from '@angular/cdk/dialog';
 })
 export class OptionsMenu {
   readonly dialog = inject(MatDialog);
-  customers = signal(customers);
+  customers = signal([...customers]);
   searchFilter = '';
 
   openDialog() {
@@ -24,6 +24,7 @@ export class OptionsMenu {
       console.log('New customer:', newCustomer);
       // customers.push(newCustomer);
       this.customers.update(list => [...list, newCustomer]);
+      this.filter();
     }
   });
   }
@@ -31,17 +32,14 @@ export class OptionsMenu {
   filteredData = output<customerModel[]>();
   filter(){
     if(this.searchFilter){
+      const maybeNumber = Number(this.searchFilter);
       const searchToLower = this.searchFilter.toLowerCase();
-      this.result = this.customers().filter(n => n.firstName.toLowerCase().includes(searchToLower) || n.lastName.toLowerCase().includes(searchToLower) || n.address.toLowerCase().includes(searchToLower) || n.city.toLowerCase().includes(searchToLower) || n.state.toLowerCase().includes(searchToLower) || n.orderTotal===Number(searchToLower));
+      this.result = this.customers().filter(n => n.firstName.toLowerCase().includes(searchToLower) || n.lastName.toLowerCase().includes(searchToLower) || n.address.toLowerCase().includes(searchToLower) || n.city.toLowerCase().includes(searchToLower) || n.state.toLowerCase().includes(searchToLower));
     }
     else{
       this.result = [...this.customers()];
     }
     console.log(this.result);
-    // const newData = customers.filter(n=> n.firstName===wrapper || n.lastName===wrapper || n.address===wrapper || n.city===wrapper || n.state===wrapper || n.orderTotal===Number(wrapper));
-      // this.result = newData;
-      // console.log(this.result)
-      // return this.result;
     this.filteredData.emit(this.result);
   }
 
