@@ -39,7 +39,6 @@ export class OptionsMenu {
     else{
       this.result = [...this.customers()];
     }
-    console.log(this.result);
     this.filteredData.emit(this.result);
   }
 

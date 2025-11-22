@@ -28,6 +28,7 @@ export class DialogBox {
   });
   submitDialog(gender:'male' | 'female',firstName: string, lastName: string, address: string, city: string, state: string, order: number){
    const newCustomer:customerModel = {
+    id:'c'+Date.now().toString(36) + Math.random().toString(20),
     sex: gender,
     firstName: firstName,
     lastName: lastName,
@@ -36,6 +37,7 @@ export class DialogBox {
     state: state,
     orderTotal: order,
    }
+   console.log(newCustomer.id)
    this.dialogRef.close(newCustomer);
   }
 }

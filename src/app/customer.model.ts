@@ -1,4 +1,5 @@
 export interface customerModel {
+    id:string,
     sex: 'male' | 'female',
     firstName: string,
     lastName: string,
@@ -6,5 +7,4 @@ export interface customerModel {
     city: string,
     state: string,
     orderTotal: number,
-
 }

@@ -1,6 +1,7 @@
 import { customerModel } from "./customer.model";
 
 export const customers:customerModel[]=[{
+        id:'c1',
         sex: 'female',
         firstName: 'Michele',
         lastName: 'Avery',
@@ -10,6 +11,7 @@ export const customers:customerModel[]=[{
         orderTotal: 169989,
     },
     {
+        id:'c2',
         sex: 'male',
         firstName: 'Ward',
         lastName: 'Bell',
@@ -19,6 +21,7 @@ export const customers:customerModel[]=[{
         orderTotal: 124994, 
     },
     {
+        id:'c3',
         sex: 'female',
         firstName: 'Laura',
         lastName: 'Patterson',
@@ -28,6 +31,7 @@ export const customers:customerModel[]=[{
         orderTotal: 45999,
     },
     {
+        id:'c4',
         sex: 'male',
         firstName: 'Jonathan',
         lastName: 'Reeves',
@@ -37,6 +41,7 @@ export const customers:customerModel[]=[{
         orderTotal: 239500,
     },
     {
+        id:'c5',
         sex: 'female',
         firstName: 'Emily',
         lastName: 'Clark',
@@ -46,6 +51,7 @@ export const customers:customerModel[]=[{
         orderTotal: 98550,
     },
     {
+        id:'c6',
         sex: 'male',
         firstName: 'Chris',
         lastName: 'Henderson',
@@ -55,6 +61,7 @@ export const customers:customerModel[]=[{
         orderTotal: 174300,
     },
     {
+        id:'c7',
         sex: 'female',
         firstName: 'Nicole',
         lastName: 'Santos',

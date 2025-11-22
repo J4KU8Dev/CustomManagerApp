@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { UpdateCustomer as UpdateCustomerComponent } from '../../update-customer/update-customer';
 @Component({
   selector: '[app-menu-customer]',
-  imports: [CurrencyPipe, UpdateCustomerComponent],
+  imports: [CurrencyPipe],
   templateUrl: './menu-customer.html',
   styleUrl: './menu-customer.css',
 })
@@ -13,7 +13,9 @@ export class MenuCustomer {
   customer = input.required<customerModel>();
   public dialog = inject(MatDialog);
   updateCustomer(){
-    this.dialog.open(UpdateCustomerComponent);
-    // input data do update dialog box and two way data binding
+    this.dialog.open(UpdateCustomerComponent,{
+      data:this.customer(),
+    });
+    // create function to update data customer and pass it, then show it
   }
 }
