@@ -32,7 +32,6 @@ export class OptionsMenu {
   filteredData = output<customerModel[]>();
   filter(){
     if(this.searchFilter){
-      const maybeNumber = Number(this.searchFilter);
       const searchToLower = this.searchFilter.toLowerCase();
       this.result = this.customers().filter(n => n.firstName.toLowerCase().includes(searchToLower) || n.lastName.toLowerCase().includes(searchToLower) || n.address.toLowerCase().includes(searchToLower) || n.city.toLowerCase().includes(searchToLower) || n.state.toLowerCase().includes(searchToLower));
     }
@@ -40,7 +39,5 @@ export class OptionsMenu {
       this.result = [...this.customers()];
     }
     this.filteredData.emit(this.result);
-  }
-
- 
+  } 
 }

@@ -1,8 +1,9 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
 import { customerModel } from '../../customer.model';
 import { CurrencyPipe } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { UpdateCustomer as UpdateCustomerComponent } from '../../update-customer/update-customer';
+import { customers } from '../../customer';
 @Component({
   selector: '[app-menu-customer]',
   imports: [CurrencyPipe],
@@ -11,11 +12,22 @@ import { UpdateCustomer as UpdateCustomerComponent } from '../../update-customer
 })
 export class MenuCustomer {
   customer = input.required<customerModel>();
+  updatedCustomer = output<customerModel>();
   public dialog = inject(MatDialog);
+  customers = signal([...customers]);
+
   updateCustomer(){
-    this.dialog.open(UpdateCustomerComponent,{
+    const dialogRef = this.dialog.open(UpdateCustomerComponent,{
       data:this.customer(),
     });
-    // create function to update data customer and pass it, then show it
+    dialogRef.afterClosed().subscribe((UpdatedCustomer: customerModel) => {
+      if(UpdatedCustomer){
+        this.customers.update(model => model.map(c => c.id === UpdatedCustomer.id ? UpdatedCustomer : c)
+);
+      }
+      console.log(UpdatedCustomer);
+      this.updatedCustomer.emit(UpdatedCustomer)
+    })
+    
   }
 }

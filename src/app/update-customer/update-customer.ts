@@ -16,9 +16,9 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 export class UpdateCustomer {
   dataCustomer!: customerModel;
 
-constructor(@Inject(MAT_DIALOG_DATA) public data: customerModel) {
+constructor(@Inject(MAT_DIALOG_DATA) public data: customerModel, private dialogRef: MatDialogRef<UpdateCustomer>) {
   this.dataCustomer = data;
-  console.log(this.dataCustomer);
+  // console.log(this.dataCustomer);
 }
 
 editForm!: FormGroup;
@@ -33,6 +33,21 @@ ngOnInit() {
     state: new FormControl(this.dataCustomer.state, Validators.required),
     order: new FormControl(this.dataCustomer.orderTotal, Validators.required),
   });
+}
+
+onUpdateCustomer(gender:'male' | 'female',firstName: string, lastName: string, address: string, city: string, state: string, order: number){
+  const updatedCustomer:customerModel = {
+    id:this.dataCustomer.id,
+    sex: gender,
+    firstName: firstName,
+    lastName: lastName,
+    address: address,
+    city: city,
+    state: state,
+    orderTotal: order,
+  }
+  console.log(updatedCustomer)
+  this.dialogRef.close(updatedCustomer);
 }
   
 }
