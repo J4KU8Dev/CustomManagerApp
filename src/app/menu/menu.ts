@@ -1,7 +1,6 @@
-import { Component, input } from '@angular/core';
-import { customers } from '../customer';
-import { MenuCustomer } from "./menu-customer/menu-customer";
+import { Component, input, output } from '@angular/core';
 import { customerModel } from '../customer.model';
+import { MenuCustomer } from "./menu-customer/menu-customer";
 
 @Component({
   selector: 'app-menu',
@@ -10,6 +9,10 @@ import { customerModel } from '../customer.model';
   styleUrl: './menu.css',
 })
 export class Menu {
-  customers = customers;
-  newData = input<customerModel[]>();
+  customers = input.required<customerModel[]>();
+  updatedCustomer = output<customerModel>(); 
+
+  onCustomerUpdated(updated: customerModel) {
+    this.updatedCustomer.emit(updated);
+  }
 }

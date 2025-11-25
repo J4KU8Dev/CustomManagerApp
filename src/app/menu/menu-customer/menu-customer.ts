@@ -1,9 +1,9 @@
-import { Component, inject, input, output, signal } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { customerModel } from '../../customer.model';
 import { CurrencyPipe } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { UpdateCustomer as UpdateCustomerComponent } from '../../update-customer/update-customer';
-import { customers } from '../../customer';
+
 @Component({
   selector: '[app-menu-customer]',
   imports: [CurrencyPipe],
@@ -13,21 +13,17 @@ import { customers } from '../../customer';
 export class MenuCustomer {
   customer = input.required<customerModel>();
   updatedCustomer = output<customerModel>();
-  public dialog = inject(MatDialog);
-  customers = signal([...customers]);
+  dialog = inject(MatDialog);
 
   updateCustomer(){
-    const dialogRef = this.dialog.open(UpdateCustomerComponent,{
-      data:this.customer(),
+    const dialogRef = this.dialog.open(UpdateCustomerComponent, {
+      data: this.customer()
     });
-    dialogRef.afterClosed().subscribe((UpdatedCustomer: customerModel) => {
-      if(UpdatedCustomer){
-        this.customers.update(model => model.map(c => c.id === UpdatedCustomer.id ? UpdatedCustomer : c)
-);
+
+    dialogRef.afterClosed().subscribe((updated: customerModel | undefined) => {
+      if (updated) {
+        this.updatedCustomer.emit(updated);
       }
-      console.log(UpdatedCustomer);
-      this.updatedCustomer.emit(UpdatedCustomer)
-    })
-    
+    });
   }
 }

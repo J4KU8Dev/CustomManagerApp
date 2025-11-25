@@ -1,12 +1,5 @@
-<!-- 
-divide app for 3 components :
--header
--menu bar
--customer section 
---> 
-
 <div class="container-fluid">
-    <app-header />
-    <app-options-menu (filteredData)="saveData($event)" />
-    <app-menu [newData]="result()" /> 
+  <app-header />
+  <app-options-menu [allCustomers]="master()" (filteredView)="onFilteredView($event)" (addCustomer)="onAddCustomer($event)" />
+  <app-menu [customers]="displayed()" (updatedCustomer)="onCustomerUpdated($event)" />
 </div>

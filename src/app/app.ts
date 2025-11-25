@@ -1,9 +1,9 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { Header } from "./header/header";
 import { Menu } from "./menu/menu";
 import { OptionsMenu } from "./options-menu/options-menu";
 import { customerModel } from './customer.model';
-import { customers } from './customer';
+import { customers as initialCustomers } from './customer';
 
 @Component({
   selector: 'app-root',
@@ -11,15 +11,21 @@ import { customers } from './customer';
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App implements OnInit {
-  protected readonly title = signal('CustomManagerApp');
-  saveData(filter: customerModel[]){
-    this.result.set(filter);
-  }
-  ngOnInit(): void {
-    console.log(this.result);
-  }
-  // result:customerModel[]=[...customers];
-  result = signal([... customers])
+export class App {
+  master = signal<customerModel[]>([...initialCustomers]);
+  displayed = signal<customerModel[]>([...initialCustomers]);
 
+  onFilteredView(filtered: customerModel[]) {
+    this.displayed.set(filtered);
+  }
+
+  onAddCustomer(newCustomer: customerModel) {
+    this.master.update(list => [...list, newCustomer]);
+    this.displayed.set(this.master());
+  }
+
+  onCustomerUpdated(updated: customerModel) {
+    this.master.update(list => list.map(c => c.id === updated.id ? updated : c));
+    this.displayed.update(list => list.map(c => c.id === updated.id ? updated : c));
+  }
 }

@@ -1,11 +1,10 @@
-import { Component, inject, output, signal } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { customers } from '../customer';
-import { customerModel } from '../customer.model';
 import { MatButtonModule } from '@angular/material/button';
-import { DialogBox } from '../dialog-box/dialog-box';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogRef } from '@angular/cdk/dialog';
+import { DialogBox } from '../dialog-box/dialog-box';
+import { customerModel } from '../customer.model';
+
 @Component({
   selector: 'app-options-menu',
   imports: [FormsModule, MatButtonModule],
@@ -14,30 +13,37 @@ import { DialogRef } from '@angular/cdk/dialog';
 })
 export class OptionsMenu {
   readonly dialog = inject(MatDialog);
-  customers = signal([...customers]);
+  allCustomers = input.required<customerModel[]>();
+  filteredView = output<customerModel[]>();
+  addCustomer = output<customerModel>();
   searchFilter = '';
 
   openDialog() {
-  const dialogRef = this.dialog.open(DialogBox);
-  dialogRef.afterClosed().subscribe((newCustomer: customerModel | undefined) => {
-    if (newCustomer) {
-      console.log('New customer:', newCustomer);
-      // customers.push(newCustomer);
-      this.customers.update(list => [...list, newCustomer]);
-      this.filter();
-    }
-  });
+    const dialogRef = this.dialog.open(DialogBox);
+    dialogRef.afterClosed().subscribe((newCustomer: customerModel | undefined) => {
+      if (!newCustomer) return;
+      this.addCustomer.emit(newCustomer);
+      const combined = [...this.allCustomers(), newCustomer];
+      this.emitView(combined);
+    });
   }
-  result:customerModel[] = [];
-  filteredData = output<customerModel[]>();
-  filter(){
-    if(this.searchFilter){
-      const searchToLower = this.searchFilter.toLowerCase();
-      this.result = this.customers().filter(n => n.firstName.toLowerCase().includes(searchToLower) || n.lastName.toLowerCase().includes(searchToLower) || n.address.toLowerCase().includes(searchToLower) || n.city.toLowerCase().includes(searchToLower) || n.state.toLowerCase().includes(searchToLower));
+  emitView(list: customerModel[]) {
+    if (!this.searchFilter) {
+      this.filteredView.emit(list);
+      return;
     }
-    else{
-      this.result = [...this.customers()];
-    }
-    this.filteredData.emit(this.result);
-  } 
+    const s = this.searchFilter.toLowerCase();
+    const result = list.filter(c =>
+      c.firstName.toLowerCase().includes(s) ||
+      c.lastName.toLowerCase().includes(s) ||
+      c.address.toLowerCase().includes(s) ||
+      c.city.toLowerCase().includes(s) ||
+      c.state.toLowerCase().includes(s)
+    );
+    this.filteredView.emit(result);
+  }
+
+  filter() {
+    this.emitView(this.allCustomers());
+  }
 }

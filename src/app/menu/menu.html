@@ -12,8 +12,8 @@
         </tr>
     </thead>
     <tbody>
-        @for (customer of newData(); track $index) {
-            <tr app-menu-customer [customer]="customer" ></tr>
+        @for (customer of customers(); track customer.id) {
+            <tr app-menu-customer [customer]="customer" (updatedCustomer)="onCustomerUpdated($event)"></tr>
     }
     </tbody>
 </table>
