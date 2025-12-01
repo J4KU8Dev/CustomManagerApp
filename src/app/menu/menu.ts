@@ -11,8 +11,13 @@ import { MenuCustomer } from "./menu-customer/menu-customer";
 export class Menu {
   customers = input.required<customerModel[]>();
   updatedCustomer = output<customerModel>(); 
+  deletedCustomer = output<customerModel>();
 
   onCustomerUpdated(updated: customerModel) {
     this.updatedCustomer.emit(updated);
+  }
+  onCustomerDeleted(deleted: customerModel) {
+    this.deletedCustomer.emit(deleted);
+    // console.log(deleted);
   }
 }

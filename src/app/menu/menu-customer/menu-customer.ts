@@ -13,6 +13,7 @@ import { UpdateCustomer as UpdateCustomerComponent } from '../../update-customer
 export class MenuCustomer {
   customer = input.required<customerModel>();
   updatedCustomer = output<customerModel>();
+  deletedCustomer = output<customerModel>();
   dialog = inject(MatDialog);
 
   updateCustomer(){
@@ -25,5 +26,13 @@ export class MenuCustomer {
         this.updatedCustomer.emit(updated);
       }
     });
+  }
+  deleteCustomer(){ 
+    const customerToDelete = this.customer();
+    const accepted = confirm('Are you sure to delete customer ' + customerToDelete.firstName + ' ' + customerToDelete.lastName + ' ?')
+    if(accepted) {
+      // console.log('deleting customer ' + customerToDelete.firstName + ' ' + customerToDelete.lastName);
+      this.deletedCustomer.emit(customerToDelete);
+    }
   }
 }

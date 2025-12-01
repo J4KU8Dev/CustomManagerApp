@@ -9,11 +9,12 @@
             <th>State</th>
             <th>Order Total</th>
             <th>Options</th>
+            <th>Delete</th>
         </tr>
     </thead>
     <tbody>
         @for (customer of customers(); track customer.id) {
-            <tr app-menu-customer [customer]="customer" (updatedCustomer)="onCustomerUpdated($event)"></tr>
+            <tr app-menu-customer [customer]="customer" (updatedCustomer)="onCustomerUpdated($event)" (deletedCustomer)="onCustomerDeleted($event)"></tr>
     }
     </tbody>
 </table>

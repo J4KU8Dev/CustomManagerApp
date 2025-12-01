@@ -1,5 +1,5 @@
 <div class="container-fluid">
   <app-header />
   <app-options-menu [allCustomers]="master()" (filteredView)="onFilteredView($event)" (addCustomer)="onAddCustomer($event)" />
-  <app-menu [customers]="displayed()" (updatedCustomer)="onCustomerUpdated($event)" />
+  <app-menu [customers]="displayed()" (updatedCustomer)="onCustomerUpdated($event)" (deletedCustomer)="onCustomerDeleted($event)" />
 </div>
