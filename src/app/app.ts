@@ -25,13 +25,12 @@ export class App {
   }
 
   onCustomerUpdated(updated: customerModel) {
+    // console.log(typeof(updated))
     this.master.update(list => list.map(c => c.id === updated.id ? updated : c));
     this.displayed.update(list => list.map(c => c.id === updated.id ? updated : c));
   }
   onCustomerDeleted(deleted: customerModel) {
-    this.master.update(list => list.filter(c => c.id !== deleted.id));
-    console.log(deleted);
-    // console.log(this.master.update(list => list.filter(c => c.id !== deleted.id)));
-    // finish deleteting function, just this line above!
+    this.master.update(list => list.filter(customer => customer.id !== deleted.id));
+    this.displayed.update(list => list.filter(customers => customers.id !== deleted.id));
   }
 }
