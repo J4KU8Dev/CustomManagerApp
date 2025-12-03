@@ -2,10 +2,11 @@ import { Component, computed, input, output, signal } from '@angular/core';
 import { customerModel } from '../customer.model';
 import { MenuCustomer } from "./menu-customer/menu-customer";
 import { SortingInterface } from './sorting.interface';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-menu',
-  imports: [MenuCustomer],
+  imports: [MenuCustomer, MatPaginatorModule],
   templateUrl: './menu.html',
   styleUrl: './menu.css',
 })
@@ -13,6 +14,8 @@ export class Menu {
   customers = input.required<customerModel[]>();
   updatedCustomer = output<customerModel>(); 
   deletedCustomer = output<customerModel>();
+  currentPage = signal(0);
+  pageSize = signal(10);
   
   columns = signal([
     { label: 'First Name', key: 'firstName' },
@@ -65,5 +68,16 @@ export class Menu {
   onCustomerDeleted(deleted: customerModel) {
     this.deletedCustomer.emit(deleted);
     // console.log(deleted);
+  }
+
+  onPageEvent(event: PageEvent) {
+    this.currentPage.set(event.pageIndex);
+    this.pageSize.set(event.pageSize);
+  }
+
+  get paginatedCustomers() {
+    const start = this.currentPage() * this.pageSize();
+    const end = start + this.pageSize();
+    return this.customers().slice(start, end);
   }
 }
