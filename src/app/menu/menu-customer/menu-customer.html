@@ -1,5 +1,7 @@
 <td>
-    <img [src]="'assets/' + customer().sex + '.png'" [alt]="customer().sex">
+    <a [routerLink]="['/customer', customer().id]" routerLinkActive="active">
+        <img [src]="'assets/' + customer().sex + '.png'" [alt]="customer().sex" [matTooltip]="'Click to see more details about: ' + customer().firstName">
+    </a>
 </td>
 <td class="align-middle">{{customer().firstName}}</td>
 <td class="align-middle">{{customer().lastName}}</td>

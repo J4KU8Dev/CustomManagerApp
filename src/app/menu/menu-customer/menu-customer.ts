@@ -3,10 +3,11 @@ import { customerModel } from '../../customer.model';
 import { CurrencyPipe } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { UpdateCustomer as UpdateCustomerComponent } from '../../update-customer/update-customer';
-
+import { RouterLink, RouterModule, RouterLinkActive } from "@angular/router";
+import { MatTooltipModule } from '@angular/material/tooltip';
 @Component({
   selector: '[app-menu-customer]',
-  imports: [CurrencyPipe],
+  imports: [CurrencyPipe, RouterLink, MatTooltipModule, RouterModule, RouterLinkActive],
   templateUrl: './menu-customer.html',
   styleUrl: './menu-customer.css',
 })

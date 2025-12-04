@@ -4,10 +4,11 @@ import { Menu } from "./menu/menu";
 import { OptionsMenu } from "./options-menu/options-menu";
 import { customerModel } from './customer.model';
 import { customers as initialCustomers } from './customer';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [Header, Menu, OptionsMenu],
+  imports: [Header, Menu, OptionsMenu, RouterModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

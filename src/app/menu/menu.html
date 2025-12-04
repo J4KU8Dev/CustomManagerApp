@@ -18,7 +18,7 @@
         </tr>
     </thead>
     <tbody>
-        <!-- @for (customer of sortedCustomers(); track customer.id) { -->
+        <!-- to do: repaird sorting( not working! ) -->
         @for (customer of paginatedCustomers; track customer.id) {
             <tr app-menu-customer [customer]="customer" (updatedCustomer)="onCustomerUpdated($event)" (deletedCustomer)="onCustomerDeleted($event)"></tr>
     }
