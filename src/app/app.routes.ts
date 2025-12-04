@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { App } from './app';
 import { CustomerDetails } from './customer-details/customer-details';
+import { Dashboard } from './dashboard/dashboard';
 
 export const routes: Routes = [
+    { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+    { path: 'dashboard', component: Dashboard },
     // { path:'**', component:PageNotFound},
-    { path: 'dashboard', component: App },
-    // { path: 'customer', component: CustomerDetails },
     { path: 'customer/:id', component: CustomerDetails },
 ];
