@@ -14,9 +14,10 @@ export class Menu {
   customers = input.required<customerModel[]>();
   updatedCustomer = output<customerModel>(); 
   deletedCustomer = output<customerModel>();
+
   currentPage = signal(0);
   pageSize = signal(10);
-  
+
   columns = signal([
     { label: 'First Name', key: 'firstName' },
     { label: 'Last Name', key: 'lastName' },
@@ -29,7 +30,7 @@ export class Menu {
   sorting = signal<SortingInterface>({
     column: 'firstName',
     order: 'asc',
-  })
+  });
 
   isDescSorting(column: string) {
     return this.sorting().column === column && this.sorting().order === 'desc';
@@ -44,10 +45,10 @@ export class Menu {
 
     this.sorting.set({
       column,
-      order:  current.column === column && current.order === 'desc' ? 'asc' : 'desc',
-    })
-
+      order: current.column === column && current.order === 'desc' ? 'asc' : 'desc',
+    });
   }
+
   sortedCustomers = computed(() => {
     const list = [...this.customers()];
     const { column, order } = this.sorting();
@@ -62,22 +63,22 @@ export class Menu {
     });
   });
 
+  paginatedCustomers = computed(() => {
+    const start = this.currentPage() * this.pageSize();
+    const end = start + this.pageSize();
+    return this.sortedCustomers().slice(start, end);
+  });
+
   onCustomerUpdated(updated: customerModel) {
     this.updatedCustomer.emit(updated);
   }
+
   onCustomerDeleted(deleted: customerModel) {
     this.deletedCustomer.emit(deleted);
-    // console.log(deleted);
   }
 
   onPageEvent(event: PageEvent) {
     this.currentPage.set(event.pageIndex);
     this.pageSize.set(event.pageSize);
-  }
-
-  get paginatedCustomers() {
-    const start = this.currentPage() * this.pageSize();
-    const end = start + this.pageSize();
-    return this.customers().slice(start, end);
   }
 }
