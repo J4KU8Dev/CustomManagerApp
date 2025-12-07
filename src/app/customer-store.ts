@@ -5,7 +5,7 @@ import { customers as initialData } from './customer';
   providedIn: 'root',
 })
 export class CustomerStore {
-  private master = signal<customerModel[]>([...initialData]);
+  public master = signal<customerModel[]>([...initialData]);
   search = signal('');
   currentPage = signal(0);
   pageSize = signal(10);

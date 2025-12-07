@@ -4,7 +4,7 @@
     <div style="grid-template-columns: 1fr 1fr;" class="d-grid gap-3 mt-5">
         <div>
             <label style="font-size: 30px;">Filter:</label>
-            <input type="search" class="p-2" [(ngModel)]="searchFilter" (ngModelChange)="filter()" />
+             <input type="search" class="p-2" (input)="store.updateSearch($any($event.target).value)" />
         </div>
         <button mat-raised-button class="btn btn-primary p-2 w-50" (click)="openDialog()">Add New Customer</button>
     </div> 

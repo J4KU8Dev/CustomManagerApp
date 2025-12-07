@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogBox } from '../dialog-box/dialog-box';
 import { customerModel } from '../customer.model';
+import { CustomerStore } from '../customer-store';
 
 @Component({
   selector: 'app-options-menu',
@@ -12,38 +13,22 @@ import { customerModel } from '../customer.model';
   styleUrl: './options-menu.css',
 })
 export class OptionsMenu {
-  readonly dialog = inject(MatDialog);
-  allCustomers = input.required<customerModel[]>();
-  filteredView = output<customerModel[]>();
-  addCustomer = output<customerModel>();
-  searchFilter = '';
+  public store = inject(CustomerStore);
+  private dialog = inject(MatDialog);
+
+  search = this.store.search; // signal z store
+
+  filter() {
+    this.store.updateSearch(this.search());
+  }
 
   openDialog() {
     const dialogRef = this.dialog.open(DialogBox);
-    dialogRef.afterClosed().subscribe((newCustomer: customerModel | undefined) => {
-      if (!newCustomer) return;
-      this.addCustomer.emit(newCustomer);
-      const combined = [...this.allCustomers(), newCustomer];
-      this.emitView(combined);
-    });
-  }
-  emitView(list: customerModel[]) {
-    if (!this.searchFilter) {
-      this.filteredView.emit(list);
-      return;
-    }
-    const s = this.searchFilter.toLowerCase();
-    const result = list.filter(c =>
-      c.firstName.toLowerCase().includes(s) ||
-      c.lastName.toLowerCase().includes(s) ||
-      c.address.toLowerCase().includes(s) ||
-      c.city.toLowerCase().includes(s) ||
-      c.state.toLowerCase().includes(s)
-    );
-    this.filteredView.emit(result);
-  }
 
-  filter() {
-    this.emitView(this.allCustomers());
+    dialogRef.afterClosed().subscribe(newCustomer => {
+      if (!newCustomer) return;
+      this.store.addCustomer(newCustomer);
+      this.store.updateSearch(''); // reset filtra
+    });
   }
 }

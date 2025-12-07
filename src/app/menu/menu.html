@@ -19,9 +19,9 @@
     </thead>
     <tbody>
         <!-- to do: repaird sorting( not working! ) -->
-        @for (customer of paginatedCustomers(); track customer.id) {
-            <tr app-menu-customer [customer]="customer" (updatedCustomer)="onCustomerUpdated($event)" (deletedCustomer)="onCustomerDeleted($event)"></tr>
+        @for (customer of store.paginated(); track customer.id) {
+            <tr app-menu-customer [customer]="customer" (updatedCustomer)="store.updateCustomer($event)" (deletedCustomer)="store.deleteCustomer($event)"></tr>
     }
     </tbody>
 </table>
-<mat-paginator [length]="customers().length" [pageSize]="10" [showFirstLastButtons]="true" [pageSizeOptions]="[5,10,20,50]" (page)="onPageEvent($event)"></mat-paginator>
+<mat-paginator [length]="store.sorted().length" [pageSize]="10" [showFirstLastButtons]="true" [pageSizeOptions]="[5,10,20,50]" (page)="onPageEvent($event)"></mat-paginator>

@@ -1,8 +1,9 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { OptionsMenu } from "../options-menu/options-menu";
 import { Menu } from "../menu/menu";
 import { customerModel } from '../customer.model';
 import { customers as initialCustomers } from '../customer';
+import { CustomerStore } from '../customer-store';
 @Component({
   selector: 'app-dashboard',
   imports: [OptionsMenu, Menu],
@@ -10,25 +11,25 @@ import { customers as initialCustomers } from '../customer';
   styleUrl: './dashboard.css',
 })
 export class Dashboard {
-  master = signal<customerModel[]>([...initialCustomers]);
-  displayed = signal<customerModel[]>([...initialCustomers]);
+  store = inject(CustomerStore)
 
-  onFilteredView(filtered: customerModel[]) {
-    this.displayed.set(filtered);
+  get customers() {
+    return this.store.paginated();
   }
 
-  onAddCustomer(newCustomer: customerModel) {
-    this.master.update(list => [...list, newCustomer]);
-    this.displayed.set(this.master());
+  onFilteredView(value: string) {
+    this.store.updateSearch(value);
   }
 
-  onCustomerUpdated(updated: customerModel) {
-    // console.log(typeof(updated))
-    this.master.update(list => list.map(c => c.id === updated.id ? updated : c));
-    this.displayed.update(list => list.map(c => c.id === updated.id ? updated : c));
+  onAddCustomer(newCustomer: any) {
+    this.store.addCustomer(newCustomer);
   }
-  onCustomerDeleted(deleted: customerModel) {
-    this.master.update(list => list.filter(customer => customer.id !== deleted.id));
-    this.displayed.update(list => list.filter(customers => customers.id !== deleted.id));
+
+  onCustomerUpdated(updated: any) {
+    this.store.updateCustomer(updated);
+  }
+
+  onCustomerDeleted(deleted: any) {
+    this.store.deleteCustomer(deleted);
   }
 }
